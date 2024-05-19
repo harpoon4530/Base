@@ -6,11 +6,13 @@ import com.google.inject.Injector;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.base.handlers.CartServlet;
 import org.base.handlers.DirectoryServlet;
 import org.base.security.BasicAuth;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +25,13 @@ public class App {
     private static Server jetty;
     public static void main(String[] args) throws Exception {
 
+        QueuedThreadPool threadPool = new QueuedThreadPool(100, 10);
         jetty = new Server(8080);
+
+        logger.info("Staring Jetty with: {} threads", jetty.getThreadPool());
+        logger.info("----------------------------------------------------------");
+        logger.info(jetty.getThreadPool().toString());
+
         HttpConfiguration httpConfig = new HttpConfiguration();
         httpConfig.setSendServerVersion(false);
         HttpConnectionFactory httpFactory = new HttpConnectionFactory(httpConfig);
