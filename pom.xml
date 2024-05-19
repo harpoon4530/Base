@@ -51,25 +51,25 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <artifactId>exec-maven-plugin</artifactId>-->
-<!--                <version>1.4.0</version>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <executions>-->
-<!--                    <execution>&lt;!&ndash; Run our version calculation script &ndash;&gt;-->
-<!--                        <id>Proto Compilation</id>-->
-<!--                        <phase>generate-sources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>exec</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            &lt;!&ndash;<executable>${basedir}/scripts/calculate-version.sh</executable>&ndash;&gt;-->
-<!--                            &lt;!&ndash;<executable>${basedir}/protoCompile.sh</executable>&ndash;&gt;-->
-<!--                            &lt;!&ndash;<executable>${basedir}/foo.sh</executable>&ndash;&gt;-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution><!-- Run our version calculation script -->
+                        <id>Proto Compilation</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <!--<executable>${basedir}/scripts/calculate-version.sh</executable>-->
+                            <executable>${basedir}/protoCompile.sh</executable>
+                            <!--<executable>${basedir}/foo.sh</executable>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
 
             <plugin>
@@ -116,6 +116,12 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>

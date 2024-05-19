@@ -10,8 +10,18 @@ RUN apt update
 
 # Install necessary tools and utilities
 RUN $INSTALL_PREFIX zip bzip2 fontconfig curl supervisor nginx wget unzip emacs mysql-server bash-completion dnsutils
+RUN $INSTALL_PREFIX g++ git bazel
 # install java
 RUN $INSTALL_PREFIX openjdk-21-jdk
+
+
+# install protoc
+# apt install protobuf-compiler
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.zip \
+    && unzip protobuf-26.1.zip \
+    && cd protobuf-26.1
+
+
 
 # install maven
 RUN curl -fsSL $MAVEN_PREFIX/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
@@ -27,16 +37,16 @@ RUN mkdir -p /tmp/log/supervisord
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # copy files from cwd to docker
-RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
+RUN wget https://github.com/harpoon4530/Base/archive/refs/heads/main.zip \
     && unzip main.zip  \
-    && cd Directory-main \
-    && mv src/main/resources/prod.properties src/main/resources/db.properties \
-    && mvn clean package
+    && cd Base-main \
+    && mv src/main/resources/prod.properties src/main/resources/db.properties
+#    && mvn clean package
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
-WORKDIR /Directory-main
+WORKDIR /Base-main
 #CMD ["java",  "-jar", "./target/base.jar",  ">/tmp/log.txt 2>&1"]
 #CMD ["java -jar ./target/base.jar >/tmp/log.txt 2>&1"]
 CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/conf.d/supervisord.conf"]

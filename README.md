@@ -73,11 +73,11 @@ https://www.virtualbox.org/wiki/Downloads
 
     docker context use desktop-linux
 
-    docker build --tag directory .
+    docker build --tag base .
 
 ### To run the docker image; ensure you have K8 running
 
-    docker run -p 8080:8080 -d directory
+    docker run -p 8080:8080 -d base
 
     docker ps
 
