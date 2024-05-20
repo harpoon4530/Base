@@ -32,7 +32,7 @@ public class Main {
 
 
     public static final long topK = 2L;
-    public static final String filePath = "./t1.txt";
+    public static final String filePath = "./src/main/resources/t1.txt";
     /*
     SolanaMonkeyBusiness 1595268625
     DeGods 1595268626
