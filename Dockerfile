@@ -10,16 +10,17 @@ RUN apt update
 
 # Install necessary tools and utilities
 RUN $INSTALL_PREFIX zip bzip2 fontconfig curl supervisor nginx wget unzip emacs mysql-server bash-completion dnsutils
-RUN $INSTALL_PREFIX g++ git bazel
+#RUN $INSTALL_PREFIX g++ git bazel
 # install java
 RUN $INSTALL_PREFIX openjdk-21-jdk
 
 
 # install protoc
 # apt install protobuf-compiler
-RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.zip \
-    && unzip protobuf-26.1.zip \
-    && cd protobuf-26.1
+#RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.zip \
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protoc-26.1-linux-x86_64.zip \
+    &&  unzip protoc-26.1-linux-x86_64.zip
+
 
 
 
@@ -40,8 +41,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN wget https://github.com/harpoon4530/Base/archive/refs/heads/main.zip \
     && unzip main.zip  \
     && cd Base-main \
-    && mv src/main/resources/prod.properties src/main/resources/db.properties
-#    && mvn clean package
+    && mv src/main/resources/prod.properties src/main/resources/db.properties \
+    && mvn clean package
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
