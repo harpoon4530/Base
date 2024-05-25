@@ -30,4 +30,21 @@ message Person {
     optional PhoneType type = 2;
   }
 
+  enum Temp {
+    any = 0;
+    hot = 1;
+    cold = 2;
+    frozen = 3;
+  }
+
+  message Order {
+    string id = 1;
+    string name = 2;
+    Temp temp = 3;
+    int32 shelfLife = 4;
+    double decayRate = 5;
+    int64 pickupTime = 6;
+    int64 orderInsertTime = 7;
+  }
+
 }
