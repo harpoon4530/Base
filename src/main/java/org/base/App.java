@@ -3,6 +3,7 @@ package org.base;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.base.executor.SchedExecutor;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
@@ -47,6 +48,8 @@ public class App {
 
         DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
         servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
+
+        SchedExecutor schedExecutor = injector.getInstance(SchedExecutor.class);
 
         logger.info("Starting the server!!");
         jetty.start();
