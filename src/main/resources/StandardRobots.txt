@@ -1,0 +1,302 @@
+// package whatever; // don't place package name!
+// Installed Libraries: JSON-Simple, JUNit 4, Apache Commons Lang3
+import java.io.*;
+import java.util.*;
+
+class MyCode {
+
+
+  private static final String s1 = "001a";
+  private static final String s2 = "002ab";
+  private static final String s3 = "001a002bc005abcde";
+  private static final String s4 = "005hello004from012standardbots";
+  private static final String s5 = "0000012";
+
+
+
+
+  public static void main (String[] args) {
+		System.out.println("Hello Java");
+
+
+    //List<String> ret = extractOffset(s2);
+
+
+    ArrayList<String> ret = runner(s5);
+
+    printArr(ret);
+
+    // collect the dataParts
+
+    dataParts("100HKD400:USD51");
+
+	}
+
+
+  // 2. 015.  100HKD400:USD51
+// Payload Length 							015
+// Timestamp 									100
+// Currency (from)							HKD
+// Amount (from)								400
+// Colon												:
+// Currency (to)								USD
+// Amount (to)									51
+
+// Example input:
+// trades = '015100HKD400:USD51021300ZWD700000:HKD17064'
+// 015 100HKD400:USD51
+//
+//
+
+
+public static void dataParts(String s) {
+
+  //DataParts dataParts = new DataParts();
+
+  System.out.println("======================================");
+
+  String[] parts = s.split(":");
+
+
+  String fromParts = parts[0]; // TODO: take out ts!
+  String toParts = parts[1];
+
+  System.out.println(toParts);
+  //System.out.println(fromParts);
+
+  splitToStringCurr(toParts);
+  splitFromStringCurr(fromParts);
+
+
+
+
+
+
+}
+
+public static Data splitFromStringCurr(String s) {
+
+  System.out.println("FROM: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+
+  int count = 0;
+
+  for (int i = 0; i < s.length(); i++) {
+    char c = s.charAt(i);
+    if (c <= '9') {
+      count++;
+    } else {
+      break;
+    }
+  }
+
+    System.err.println("===> " + count);
+
+    String ts = s.substring(0, count);
+    System.out.println("The ts is: " + ts);
+
+
+    String rest = s.substring(count, s.length());
+    System.err.println("The rest is: " + rest);
+
+    Data d = splitToStringCurr(rest);
+
+    return d;
+
+}
+
+
+
+
+
+public static Data splitToStringCurr(String s) {
+
+  System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+  int count = 0;
+
+  for (int i = 0; i < s.length(); i++) {
+    char c = s.charAt(i);
+    if (c > '9') {
+      count++;
+    } else {
+      break;
+    }
+
+  }
+
+
+  System.err.println("===> " + count);
+
+  String p0 = s.substring(0, count);
+  String p1 = s.substring(count, s.length());
+
+  System.err.println("===> " + p0);
+  System.err.println("===> " + p1);
+
+
+  return null;
+}
+
+
+public static class Data {
+  public String currency;
+  public int amt;
+
+  public Data(String curr, int amt) {
+    this.currency = curr;
+    this.amt = amt;
+  }
+}
+
+
+
+  public static final void ArrayList(ArrayList<String> data) {
+
+    for (String s : data) {
+
+
+
+
+    }
+
+
+  }
+
+  public static final ArrayList<String> runner(String input) {
+
+    String s = new String(input);
+
+    ArrayList<String> retArr = new ArrayList<String>();
+
+    if (input.length() == 0) {
+      return retArr;
+    }
+
+    do {
+
+      SubRes res = extractOffset(s);
+
+      retArr.add(res.token);
+      s = res.remainder;
+
+
+    } while(s.length() != 0);
+
+
+    return retArr;
+  }
+
+  public static void printArr(ArrayList<String> arr) {
+
+    for(int i = 0; i < arr.size(); i++) {
+      System.out.println(arr.get(i));
+    }
+
+  }
+
+
+  public static final SubRes extractOffset(String s) {
+
+    String sub = s.substring(0,3);
+    System.out.println("The substring is: " + sub);
+
+    Integer count = Integer.parseInt(sub);
+    System.out.println("The count is: " + count);
+
+    String rem = s.substring(3, 3+count);
+    System.out.println("the rem is: " + rem);
+
+    String left = null;
+    if (3+count+1 > s.length()) {
+      System.out.println("Reached the end of the string!!!!!");
+      left = "";
+    } else {
+      left = s.substring(3+count, s.length());
+    }
+    System.out.println("Left is: " + left);
+
+    return new SubRes(rem, left);
+  }
+
+
+  public static class SubRes {
+    public String token;
+    public String remainder;
+
+    public SubRes(String s1, String s2) {
+      this.token = s1;
+      this.remainder = s2;
+    }
+
+  }
+
+
+  public static class DataParts {
+  public int ts;
+  public String fromCurr;
+  public int fromAmount;
+
+  public String toCurr;
+  public int toAmt;
+
+  public DataParts(String ts, String fromCurr, int fromAmt, String toCurr, int toAmt) {
+    this.fromCurr = fromCurr;
+    this.fromAmount = fromAmt;
+
+    this.toCurr = toCurr;
+    this.toAmt = toAmt;
+  }
+
+}
+
+
+
+}
+
+
+// Your last Python3 code is saved below:
+// print("Hello")
+
+// Part I:
+// You are given a string which represents a series of messages.
+
+// Each message has the following format:
+
+// Format:
+// +-------------------+----------------+-----------------------+
+// | Segment           | Type           | Char Length           |
+// +===================+================+=======================+
+// | Payload Length    | int(0-9 ascii) | 3 chars               |
+// | Payload Body      | any ascii      | variable              |
+// +-------------------+----------------+-----------------------+
+
+// Your task:
+// - Implement a function/method/class that will receive a string and
+// return those payloads as an array/list
+
+// Example input
+// messages = '001a002bc005abcde' => ['a', 'bc', 'abcde']
+
+
+// Part II:
+// Now imagine these messages contain information about currency trades that have
+// taken place.
+
+// Each trade has the following format:
+// +-------------------+----------------+-----------------------+
+// | Segment           | Type           | Char Length           |
+// +===================+================+=======================+
+// | Payload Length    | int            | 3 chars               |
+// | Timestamp         | int            | variable              |
+// | Source Currency   | string, alpha  | variable              |
+// | Source Quantity   | int            | variable              |
+// | Colon (delim)     | char           | 1 char                |
+// | Destination Curr  | string, alpha  | variable              |
+// | Destination Quant | int            | variable              |
+// +-------------------+----------------+-----------------------+
+
+// Your task:
+//   Implement a function/method/class that will compute the list of all trades.
+//   The output should be parsed and represented in a structure appropriate for
+// the language.
+
