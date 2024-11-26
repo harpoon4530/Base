@@ -1,18 +1,14 @@
 package org.base;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.base.executor.SchedExecutor;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.base.handlers.CartServlet;
 import org.base.handlers.DirectoryServlet;
-import org.base.security.BasicAuth;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +39,8 @@ public class App {
                 new ServletContextHandler(jetty, "/", true, true);
 
         //TODO: this should be removed from here; Setup auth; Basic cm9vdDpwYXNzd29yZA==
-        servletContextHandler.setSecurityHandler(
-                BasicAuth.basicAuth("root", "password", "base!"));
+//        servletContextHandler.setSecurityHandler(
+//                BasicAuth.basicAuth("root", "password", "base!"));
 
         DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
         servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
@@ -57,4 +53,35 @@ public class App {
 
     }
 
+    public static class Bin {
+
+        public static void main(String[] args) {
+            System.out.println("Hello world...!!!");
+
+            List<Integer> retInt = convertToInt(11);
+            printRetList(retInt);
+        }
+
+        public static void printRetList(List<Integer> strings) {
+            for (Integer s : strings) {
+                System.out.print(s + " ");
+            }
+            System.out.print("");
+        }
+
+        public static List<Integer> convertToInt(Integer i) {
+            List<Integer> retList = new ArrayList<>();
+
+            if (i == 0)
+                return retList;
+
+            while (i != 0) {
+                int t = i % 2;
+                i = i / 2;
+                retList.add(t);
+            }
+            return retList;
+        }
+
+    }
 }

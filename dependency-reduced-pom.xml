@@ -113,16 +113,16 @@
     </dependency>
   </dependencies>
   <properties>
-    <javaVersion>21</javaVersion>
-    <guavaVersion>33.1.0-jre</guavaVersion>
-    <jar.finalName>${project.name}</jar.finalName>
-    <slf4j.version>2.0.12</slf4j.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <guiceVersion>7.0.0</guiceVersion>
-    <maven.compiler.source>${javaVersion}</maven.compiler.source>
-    <protoVersion>4.26.1</protoVersion>
     <maven.compiler.target>${javaVersion}</maven.compiler.target>
+    <guiceVersion>7.0.0</guiceVersion>
     <jettyVersion>11.0.20</jettyVersion>
+    <slf4j.version>2.0.12</slf4j.version>
+    <javaVersion>21</javaVersion>
+    <maven.compiler.source>${javaVersion}</maven.compiler.source>
     <metricsVersion>4.2.25</metricsVersion>
+    <guavaVersion>33.1.0-jre</guavaVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jar.finalName>${project.name}</jar.finalName>
+    <protoVersion>4.28.3</protoVersion>
   </properties>
 </project>

@@ -1,2 +1,8 @@
-package org.base.executor;public class BlockingQ {
+package org.base.executor;
+
+
+// https://www.baeldung.com/java-executor-service-tutorial
+public class BlockingQ {
+
+
 }

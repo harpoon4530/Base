@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import com.google.inject.Singleton;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
+
 import org.base.protos.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
