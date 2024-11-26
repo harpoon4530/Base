@@ -98,6 +98,23 @@ Make sure you get install the correct version
 
 Ensure you have XCode installed
 
+**Install ngingx**
+
+    brew install nginx
+
+    brew services restart nginx
+
+    nginx -t
+    sudo nginx -s reload
+   
+
+    curl http://127.0.0.1:8080
+
+    curl http://127.0.0.1:8080
+    curl http://localhost:8080/directory
+
+
+
 **Install Kubernetes**
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
